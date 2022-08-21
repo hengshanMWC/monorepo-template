@@ -1,0 +1,9 @@
+{
+  "name": "@bytello-auth/client-server",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "mawencan",
+  "license": "ISC"
+}

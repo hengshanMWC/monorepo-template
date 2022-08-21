@@ -1,5 +1,5 @@
 {
-  "extends": "@abmao/eslint-config-react",
+  "extends": "@abmao/eslint-config-ts",
   "rules": {
     "@typescript-eslint/no-var-requires": "off",
     "max-len": ["error", { "code": 120}],

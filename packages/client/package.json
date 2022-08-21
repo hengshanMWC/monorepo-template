@@ -5,8 +5,5 @@
   "main": "index.js",
   "keywords": [],
   "author": "mawencan",
-  "license": "ISC",
-  "devDependencies": {
-    "@abmao/eslint-config-react": "^1.0.1"
-  }
+  "license": "ISC"
 }

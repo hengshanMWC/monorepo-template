@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint --ext=js,ts,json,md .",
     "lint:fix": "eslint --fix --ext=js,ts,json,md .",
-    "release": "esno ./scripts/release.ts"
+    "release": "esno ./scripts/release.ts",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "{packages}/*.{js,ts,json,md,tsx}": "yarn lint"

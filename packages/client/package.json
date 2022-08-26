@@ -5,5 +5,12 @@
   "main": "index.js",
   "keywords": [],
   "author": "mawencan",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "antd": "^4.22.8",
+    "axios": "^0.27.2",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-intl": "^6.0.8"
+  }
 }

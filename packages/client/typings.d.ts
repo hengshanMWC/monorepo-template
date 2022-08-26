@@ -1,8 +1,7 @@
-declare global {
-  interface Navigator {
-    readonly browserLanguage: string
-    readonly userLanguage: string
-    readonly systemLanguage: string
-  }
+interface Navigator {
+  readonly browserLanguage: string
+  readonly userLanguage: string
+  readonly systemLanguage: string
 }
-export {}
+declare module '*.png';
+declare module '*.less';

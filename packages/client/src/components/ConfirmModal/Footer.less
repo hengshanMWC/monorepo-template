@@ -1,0 +1,59 @@
+@import '~@/assets/style/themes.less';
+
+.default-footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 30px;
+
+  &.single-btn-footer {
+    justify-content: flex-end;
+  }
+
+  .default-footer-btn {
+    height: 40px;
+    // width: 113px;
+    padding: 0 20px;
+    font-size: 16px;
+    border-radius: 4px;
+
+    &.cancel {
+      color: @brand-color-1;
+      border: 1px solid @brand-color-1;
+
+      &:hover {
+        color: @brand-color-2;
+        border: 1px solid @brand-color-2;
+      }
+
+      &:active {
+        color: @brand-color-3;
+        border: 1px solid @brand-color-3;
+      }
+    }
+
+    &.ok {
+      background-color: @brand-color-1;
+
+      &:hover {
+        background-color: @brand-color-2;
+      }
+
+      &:active {
+        background-color: @brand-color-3;
+      }
+    }
+
+    &:not(:first-child) {
+      margin-left: 16px !important;
+    }
+  }
+
+  :global {
+    .ant-btn[disabled] {
+      color: #fff;
+      border-color: transparent;
+      opacity: 0.3;
+    }
+  }
+}

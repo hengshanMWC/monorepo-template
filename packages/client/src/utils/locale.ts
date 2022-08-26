@@ -6,37 +6,23 @@
  * - 更新语言的时候需要更新此列表内的所有参数
  */
 import { getURLSearchParams } from './index'
-
-const LEGAL_LOCALES = ['en-US', 'zh-CN']
-
-const handleLangFlag = (locales: string[]) => {
+const DEFAULT_LOCALE = 'en-US'
+const handleLangFlag = () => {
   const value = getURLSearchParams('lang_flag')
   const langFlag: string = typeof value === 'object' ? '' : value
-  if (locales.includes(langFlag)) {
-    return langFlag
-  }
+  return langFlag
 }
 
-const handleBrowserLanguage = (locales: string[], defaultLocales: string) => {
+const handleBrowserLanguage = () => {
   const language = (
     navigator.language || navigator.browserLanguage
   ).toLowerCase()
-  const browserLang = parseNavigatorLanguage(language, defaultLocales)
-  if (locales.includes(browserLang)) {
-    return browserLang
-  }
-}
-
-const handleSystemLanguage = (locales: string[], defaultLocales: string) => {
-  const language = navigator.userLanguage || navigator.systemLanguage
-  const systemLang = parseNavigatorLanguage(language, defaultLocales)
-  if (locales.includes(systemLang)) {
-    return systemLang
-  }
+  const browserLang = parseNavigatorLanguage(language)
+  return browserLang
 }
 
 // 各浏览器对 navigator 对象中几个与语言相关的属性的返回值存在差异, 需要兼容处理
-function parseNavigatorLanguage(language: string, defaultLocales: string) {
+function parseNavigatorLanguage(language: string) {
   const CHINESE_LANGUAGE_GROUP = ['zh-hk', 'zh-tw', 'zh-sg']
   if (CHINESE_LANGUAGE_GROUP.includes(language)) {
     return 'zh-TW'
@@ -48,25 +34,23 @@ function parseNavigatorLanguage(language: string, defaultLocales: string) {
     return 'zh-CN'
   }
   else {
-    return defaultLocales
+    return DEFAULT_LOCALE
   }
 }
 
 let locale: string | undefined
 
-export function getLocale(locales: string[] = LEGAL_LOCALES, defaultLocales = 'en-US') {
+export function getLocale() {
   const arr = [
     handleLangFlag,
     handleBrowserLanguage,
-    handleSystemLanguage,
   ]
   let result
   for (let i = 0; i < arr.length; i++) {
-    result = arr[i](locales, defaultLocales)
+    result = arr[i]()
     if (result) break
   }
-  locale = result || defaultLocales
-  return result
+  return locale = result
 }
 
 export function getResultLocale() {

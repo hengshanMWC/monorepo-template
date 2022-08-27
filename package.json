@@ -10,7 +10,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "{packages}/*.{js,ts,json,md,tsx}": "yarn lint"
+    "packages/*.{js,ts,json,md,tsx}": "yarn lint"
   },
   "repository": {
     "type": "git",

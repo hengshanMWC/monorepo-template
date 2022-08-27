@@ -1,24 +1,24 @@
-import {getLocale} from '../utils/locale'
-import { getEnv} from '../utils'
+import { getLocale } from '../utils/locale'
+import { getEnv } from '../utils'
 export enum Env {
   DEV = 'dev',
   TEST = 'test',
-  PROD = 'prod'
+  PROD = 'prod',
 }
 
 export interface Config {
-  locale: string,
-  env: Env,
-  appCode?: string
+  locale: string
+  env: Env
+  appCode?: string | undefined
 }
-export function blendConfig(options: Config, template: Config = getConfig()) {
+export function blendConfig(options: Partial<Config>, template: Config = getConfig()) {
   return {
     ...template,
-    ...options
+    ...options,
   }
 }
 
-export function getConfig() {
+export function getConfig(): Config {
   return {
     locale: getLocale(),
     env: getEnv(),

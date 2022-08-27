@@ -45,12 +45,13 @@ export function getLocale() {
     handleLangFlag,
     handleBrowserLanguage,
   ]
-  let result
+  let value
   for (let i = 0; i < arr.length; i++) {
-    result = arr[i]()
-    if (result) break
+    value = arr[i]()
+    if (value) break
   }
-  return locale = result
+  locale = value || DEFAULT_LOCALE
+  return locale
 }
 
 export function getResultLocale() {

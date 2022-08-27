@@ -1,5 +1,5 @@
-import { formatMessainige } from 'react-intl'
-import styles from './auth.less'
+import { IntlProvider } from 'react-intl'
+import React from 'react'
 import { message } from 'antd'
 import type { CalenderIdentifier, UserCalendarInfoRes } from '../services/thirdAuth'
 import { getUserCalendarInfo, ThirdAuth } from '../services/thirdAuth'
@@ -7,6 +7,7 @@ import ConfirmModal from '../components/ConfirmModal'
 import connect_fail_en_US from '../assets/imgs/calendar/connect_fail_en_US.png'
 import connect_fail_ja_JP from '../assets/imgs/calendar/connect_fail_ja_JP.png'
 import connect_fail_zh_TW from '../assets/imgs/calendar/connect_fail_zh_TW.png'
+import styles from './auth.less'
 const localeImageMap = {
   'en-US': connect_fail_en_US,
   'ja-JP': connect_fail_ja_JP,
@@ -33,11 +34,11 @@ export class CalendarAuth {
   currentResolve!: (data: any) => void
   // currentReject!: (err: Error) => void
 
-  constructor (identifier: CalenderIdentifier) {
+  constructor(identifier: CalenderIdentifier) {
     this.identifier = identifier
   }
 
-  authStart () {
+  authStart() {
     return new Promise((resolve, reject) => {
       this.currentResolve = resolve
       // this.currentReject = reject
@@ -45,7 +46,7 @@ export class CalendarAuth {
     })
   }
 
-  forceAuth () {
+  forceAuth() {
     return new Promise((resolve, reject) => {
       this.currentResolve = resolve
       // this.currentReject = reject
@@ -53,7 +54,7 @@ export class CalendarAuth {
     })
   }
 
-  updateInfo () {
+  updateInfo() {
     updateInfo()
       .then(data => {
         if (isConnect(data, this.identifier)) {
@@ -65,7 +66,7 @@ export class CalendarAuth {
       })
   }
 
-  dispatchConnectAction () {
+  dispatchConnectAction() {
     this.removeListeners()
     // 跳转至日历授权
     const authUrl = `${process.env.SSO_URL}/thirdDriveAuth?driveType=${IDENTIFIER_MAP[this.identifier].name}&appCode=${process.env.appCode}`
@@ -81,7 +82,7 @@ export class CalendarAuth {
     }
   }
 
-  removeListeners () {
+  removeListeners() {
     if (!this.postMessageTimers) return
     const { timer, callback } = this.postMessageTimers
     timer && clearInterval(timer)
@@ -90,7 +91,7 @@ export class CalendarAuth {
   }
 
   // 处理授权回调页面的postMessage消息
-  handleGetMessage (event: MessageEvent) {
+  handleGetMessage(event: MessageEvent) {
     try {
       const { data, source } = event
       let dataStr = data
@@ -124,14 +125,16 @@ export class CalendarAuth {
             const { destroy } = ConfirmModal.confirm({
               title: formatMessage({ id: 'integrations.title.dirveConnectFail' }),
               content: (
-                <div className={styles['modal-children-wrapper']}>
-                  {formatMessage({ id: 'integrations.content.dirveConnectFail' })}
-                  <img
-                    className={styles.drive_fail_img}
-                    alt=""
-                    src={localeImageMap[getLocale() as keyof typeof localeImageMap]}
-                  />
-                </div>
+                <IntlProvider>
+                  <div className={styles['modal-children-wrapper']}>
+                    {formatMessage({ id: 'integrations.content.dirveConnectFail' })}
+                    <img
+                      className={styles.drive_fail_img}
+                      alt=""
+                      src={localeImageMap[getLocale() as keyof typeof localeImageMap]}
+                    />
+                  </div>
+                </IntlProvider>
               ),
               okText: formatMessage({ id: 'global.btn.retry' }),
               cancelText: formatMessage({ id: 'global.btn.cancel' }),
@@ -154,13 +157,13 @@ export class CalendarAuth {
   }
 }
 // 更新用户日历绑定信息
-function updateInfo () {
+function updateInfo() {
   return getUserCalendarInfo()
-    .then(({ data }) => data)
+    .then(({ data }) => data.data)
 }
 
 // 通过应用标识符获取用户对应的绑定信息
-function getInfoByIdentifier (info: UserCalendarInfoRes, identifier: CalenderIdentifier) {
+function getInfoByIdentifier(info: UserCalendarInfoRes, identifier: CalenderIdentifier) {
   if (info && info.identifier === identifier) {
     return info
   }
@@ -170,7 +173,7 @@ function getInfoByIdentifier (info: UserCalendarInfoRes, identifier: CalenderIde
 }
 
 // 是否已绑定
-function isConnect (info: UserCalendarInfoRes, identifier: CalenderIdentifier) {
+function isConnect(info: UserCalendarInfoRes, identifier: CalenderIdentifier) {
   const curInfo = getInfoByIdentifier(info, identifier)
   return !!curInfo
 }

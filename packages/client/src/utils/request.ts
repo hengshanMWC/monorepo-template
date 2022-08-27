@@ -1,6 +1,7 @@
-import axios, {AxiosRequestConfig} from 'axios'
+import type { AxiosRequestConfig } from 'axios'
+import axios from 'axios'
 export const instance = axios.create()
-instance.interceptors.request.use((config) => {
+instance.interceptors.request.use(config => {
   const headers = config.headers
   const _headers = {
     timestamp: Date.now().toString(),
@@ -20,7 +21,7 @@ export interface ApiRes<T = null> {
 export const request = <T>(url: string, params?: AxiosRequestConfig) =>
   instance.request<ApiRes<T>>({
     ...params,
-    url
+    url,
   })
 export const requestUser = <T>(path: string, params?: AxiosRequestConfig) =>
   request<T>(`/api/sdk/userServer${path}`, params)

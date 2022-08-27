@@ -1,4 +1,4 @@
-import { request } from '../utils/request'
+import { request } from '@/utils/request'
 export interface UserInfo {
   email: string
   nickName: string
@@ -10,17 +10,17 @@ export interface UserInfo {
 }
 export type UserInfoValue = Partial<UserInfo>
 
-export async function getUserInfo () {
+export async function fetchUserInfo() {
   return request<UserInfo>('/api/sdk/user/userInfo')
 }
 
-export async function signout () {
+export async function signout() {
   return request('/api/sdk/user/logout', {
     method: 'get',
   })
 }
 
 export type CheckTokenRes = Record<string, any>
-export async function checkToken () {
+export async function checkToken() {
   return request<CheckTokenRes>('/api/sdk/user/checkToken')
 }

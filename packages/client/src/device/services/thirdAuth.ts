@@ -1,4 +1,4 @@
-import { requestUser } from '../utils/request'
+import { requestUser } from '@/utils/request'
 export const ThirdAuth = {
   googleDrive: 'google_drive_1_3491',
   oneDrive: 'one_drive_1_1238',
@@ -16,7 +16,7 @@ export type ThirdLoginInfoRes = {
   username: string
   isConnect: boolean
 }[]
-export async function getThirdLoginInfo () {
+export async function fetchThirdLoginInfo() {
   return requestUser<ThirdLoginInfoRes>('/api/v1/third/app/getThirdLoginInfo', {
     method: 'get',
   })
@@ -27,7 +27,7 @@ export type UserCalendarInfoRes = {
   username: string
   accessToken: string
 } | null
-export async function getUserCalendarInfo () {
+export async function fetchUserCalendarInfo() {
   return requestUser<UserCalendarInfoRes>('/api/v1/third/app/bind/third/calendar/get', {
     method: 'get',
   })
@@ -37,7 +37,7 @@ export interface ThirdTokenParams {
   identifier: CalenderIdentifier | DriveIdentifier
 }
 export type ThirdTokenRes = string
-export async function updateThirdToken (params: ThirdTokenParams) {
+export async function updateThirdToken(params: ThirdTokenParams) {
   return requestUser<ThirdTokenRes>('/api/v1/third/app/refreshAccessToken', {
     method: 'get',
     params,

@@ -1,13 +1,13 @@
 import { IntlProvider } from 'react-intl'
 import React from 'react'
 import { message } from 'antd'
-import type { CalenderIdentifier, UserCalendarInfoRes } from '../services/thirdAuth'
-import { getUserCalendarInfo, ThirdAuth } from '../services/thirdAuth'
-import ConfirmModal from '../components/ConfirmModal'
-import connect_fail_en_US from '../assets/imgs/calendar/connect_fail_en_US.png'
-import connect_fail_ja_JP from '../assets/imgs/calendar/connect_fail_ja_JP.png'
-import connect_fail_zh_TW from '../assets/imgs/calendar/connect_fail_zh_TW.png'
 import styles from './auth.less'
+import type { CalenderIdentifier, UserCalendarInfoRes } from '@/device/services/thirdAuth'
+import { fetchUserCalendarInfo, ThirdAuth } from '@/device/services/thirdAuth'
+import ConfirmModal from '@/device/components/ConfirmModal'
+import connect_fail_en_US from '@/assets/imgs/calendar/connect_fail_en_US.png'
+import connect_fail_ja_JP from '@/assets/imgs/calendar/connect_fail_ja_JP.png'
+import connect_fail_zh_TW from '@/assets/imgs/calendar/connect_fail_zh_TW.png'
 const localeImageMap = {
   'en-US': connect_fail_en_US,
   'ja-JP': connect_fail_ja_JP,
@@ -158,7 +158,7 @@ export class CalendarAuth {
 }
 // 更新用户日历绑定信息
 function updateInfo() {
-  return getUserCalendarInfo()
+  return fetchUserCalendarInfo()
     .then(({ data }) => data.data)
 }
 

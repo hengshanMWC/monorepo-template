@@ -1,6 +1,6 @@
 import { IntlProvider, FormattedMessage } from 'react-intl'
 import React from 'react'
-import ConfirmModal from '@/components/ConfirmModal'
+import ConfirmModal from '@/device/components/ConfirmModal'
 import connect_fail_en_US from '@/assets/imgs/calendar/connect_fail_en_US.png'
 import connect_fail_ja_JP from '@/assets/imgs/calendar/connect_fail_ja_JP.png'
 import connect_fail_zh_TW from '@/assets/imgs/calendar/connect_fail_zh_TW.png'
